@@ -1,5 +1,59 @@
 # Shared Scene Sample
 
+This sample app demonstrates a shared scene experience based on [Shared Spatial Anchors](https://developer.oculus.com/documentation/unreal/unreal-shared-spatial-anchors/), [Scene](https://developer.oculus.com/documentation/unreal/unreal-scene-overview/), and [Passthrough](https://developer.oculus.com/documentation/unreal/unreal-passthrough-overview/) in Unreal.
+
+## Project Overview
+The sample is built with Blueprint and reuses a significant part of the Shared Spatial Anchors sample and Scene sample. As application starts it loads Lobby level and prompts a user to host or join the session over LAN. Selecting any of these options will load the Shared Spaces level. A host user can:
+
+* Enter the built-in OS scene capture
+* Create a shared anchor
+* Share scene with other connected users
+
+Joining as a client loads an empty level with Passthrough layer and allows to toggle objects visibility as soon as host shares the scene data.
+
+All Blueprints can be split into the following three categories: User Interface, Spatial Anchors Management, and Scene Reconstruction.
+
+## User Interface
+
+User Interface blueprints correspond to menus attached to controllers. These menus are populated in the runtime and are context dependent. Building blocks for those (BP_Menu, BP_MenuItem) are located in the Blueprints/UI folder as well as an anchor info widget (BP_AnchorIInfo). Blueprint of Lobby menu (BP_Lobby_Menu) is more straightforward and is easier to familiarize with the interface implementation.
+
+![User interface menu 1](Media/unreal-user-interface-menu1.png){:width="800px"}
+
+Next Event Graph view from BP_Menu_Main demonstrates the Host menu population and alters the content depending on active state (specifically Create, Save, Share).
+
+![Host menu](Media/unreal-host-menu-bp.png){:width="800px"}
+
+It’s important to mention BP_MenuManagerComponent (a component of BP_SharedSpacesPawn) containing basic and utility code to update menu position, navigation, selection, etc. To notify a user of continuous (async) operations the menu provides Start Async and End Async utilities that you can find in other Blueprints.
+
+## Spatial Anchors Management
+
+High level Spatial Anchors management blueprint (BP_SpacialAnchorManagementComponent) is also a part of BP_SharedSpacesPawn and provides functionality to create, save, load, share, etc. spatial anchors, it translates calls to lower level API and provides delegates for async operations.The implementation is similar to a dedicated sample of Shared Statial Anchors, and our’s sample features anchors creation, and storing it to a cloud.
+
+![Spatial anchors management menu1](Media/unreal-spatial-anchor-menu1.png){:width="800px"}
+
+![Spatial anchors management menu2](Media/unreal-spatial-anchor-menu2.png){:width="800px"}
+
+Both operations are asynchronous and trigger corresponding event dispatch handled in BP_MenuManagerComponent with Update Main Menu. Sharing anchor data and retrieving it on a Client are explained in the next section.
+
+## Scene Reconstruction
+The scene sharing starts with an anchor sharing from BP_SpacialAnchorManagementComponent and follows the scene info serialization. The Host shares the anchor with connected Clients based on available Meta user IDs obtained from Online Subsystem.
+
+![Scene reconstruction1](Media/unreal-scene-menu1.png){:width="800px"}
+
+Scene info contains ID of the shared anchor, arrays with label, transform in the shared anchor reference frame, and reference to static mesh for each scene object. This structure is defined as BP_Scene in the Blueprints folder.
+
+![Scene blueprint folder option](Media/unreal-scene-blueprint-folder.png)
+
+Immediately after serialization this structure is multicasted (with NetMulticast_LoadScene from BP_OculusSceneActor) to all clients to retrieve the anchor and reconstruct the scene. The blueprint function SpawnSceneActors to spawn static mesh actors is also in BP_OculusSceneActor.
+
+![Scene reconstruction2](Media/unreal-scene-menu2.png){:width="800px"}
+
+As it is obvious from the name BP_OculusSceneActor inherits the OculusSceneActor providing basic Scene API functionality for Host, and is directly placed on the SharedSpaces map.
+
+In addition, semantic labels of the scene actors are stored on Clients to toggle groups visibility from Event Graph of BP_OculusSceneActor with blueprint function ToggleVisibility.
+
+![Scene reconstruction3](Media/unreal-scene-menu3.png){:width="800px"}
+
 
 ## How to Use
 
