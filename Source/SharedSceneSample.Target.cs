@@ -11,11 +11,11 @@ using System.Collections.Generic;
 
 public class SharedSceneSampleTarget : TargetRules
 {
-	public SharedSceneSampleTarget(TargetInfo Target) : base(Target)
-	{
-		Type = TargetType.Game;
-		DefaultBuildSettings = BuildSettingsVersion.V4;
-		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
-		ExtraModuleNames.AddRange(new string[] { "SharedSceneSample" });
-	}
+    public SharedSceneSampleTarget(TargetInfo Target) : base(Target)
+    {
+        Type = TargetType.Game;
+        DefaultBuildSettings = BuildSettingsVersion.V4;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
+        ExtraModuleNames.AddRange(new string[] { "SharedSceneSample" });
+    }
 }

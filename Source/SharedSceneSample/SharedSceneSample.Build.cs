@@ -10,33 +10,33 @@ using UnrealBuildTool;
 
 public class SharedSceneSample : ModuleRules
 {
-	public SharedSceneSample(ReadOnlyTargetRules Target) : base(Target)
-	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+    public SharedSceneSample(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[]
-			{
-				"Core",
-				"CoreUObject",
-				"Engine",
-				"InputCore",
-				"AndroidPermission",
-				"UMG",
-				"OculusXRHMD",
-				"OculusXRAnchors"
-			});
+        PublicDependencyModuleNames.AddRange(new string[]
+            {
+                "Core",
+                "CoreUObject",
+                "Engine",
+                "InputCore",
+                "AndroidPermission",
+                "UMG",
+                "OculusXRHMD",
+                "OculusXRAnchors"
+            });
 
-		PrivateDependencyModuleNames.AddRange(new string[]
-			{
-				"Slate",
-				"SlateCore",
-				"OnlineSubsystem",
-				"OnlineSubsystemOculus"
-			});
+        PrivateDependencyModuleNames.AddRange(new string[]
+            {
+                "Slate",
+                "SlateCore",
+                "OnlineSubsystem",
+                "OnlineSubsystemOculus"
+            });
 
-		if (Target.Platform != UnrealTargetPlatform.Android)
-		{
-			PrecompileForTargets = PrecompileTargetsType.None;
-		}
-	}
+        if (Target.Platform != UnrealTargetPlatform.Android)
+        {
+            PrecompileForTargets = PrecompileTargetsType.None;
+        }
+    }
 }

@@ -11,7 +11,7 @@ LICENSE file in the root directory of this source tree.
 #include "OculusXRAnchorTypes.h"
 #include "SharedSceneSampleBPLibrary.generated.h"
 
-//Helper
+// Helper
 UCLASS()
 class SHAREDSCENESAMPLE_API USharedSceneSampleBPLibrary : public UBlueprintFunctionLibrary
 {
