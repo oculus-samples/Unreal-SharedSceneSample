@@ -17,10 +17,6 @@ class SHAREDSCENESAMPLE_API USharedSceneSampleBPLibrary : public UBlueprintFunct
 {
 	GENERATED_BODY()
 public:
-	/* Gets the Oculus Net ID for the specified player controller */
-	UFUNCTION(BlueprintCallable, Category = "Oculus|SharedSpatialAnchors")
-	static FString GetLocalPlayerOculusNetID();
-
 	UFUNCTION(BlueprintCallable, Category = "Oculus|SharedSpatialAnchors")
 	static bool GetDeviceSupportsLocalMultiplayer();
 };
