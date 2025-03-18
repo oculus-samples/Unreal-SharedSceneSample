@@ -12,11 +12,8 @@ LICENSE file in the root directory of this source tree.
 
 bool USharedSceneSampleBPLibrary::GetDeviceSupportsLocalMultiplayer()
 {
-	EOculusXRDeviceType type = UOculusXRFunctionLibrary::GetDeviceType();
-	return type == EOculusXRDeviceType::MetaQuestPro
-		|| type == EOculusXRDeviceType::MetaQuestProLink
-		|| type == EOculusXRDeviceType::MetaQuest3
-		|| type == EOculusXRDeviceType::OculusQuest2
-		|| type == EOculusXRDeviceType::Quest2_Link
-		|| type == EOculusXRDeviceType::MetaQuest3Link;
+	const EOculusXRDeviceType Type = UOculusXRFunctionLibrary::GetDeviceType();
+	const bool bSupported = (Type == EOculusXRDeviceType::MetaQuestPro) || (Type == EOculusXRDeviceType::MetaQuestProLink) || (Type == EOculusXRDeviceType::OculusQuest2) || (Type == EOculusXRDeviceType::Quest2_Link) || (Type == EOculusXRDeviceType::MetaQuest3) || (Type == EOculusXRDeviceType::MetaQuest3Link) || (Type == EOculusXRDeviceType::MetaQuest3S) || (Type == EOculusXRDeviceType::MetaQuest3SLink);
+
+	return bSupported;
 }
